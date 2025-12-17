@@ -12,24 +12,33 @@ const projects = [
 ];
 
 const timeline = [
-  { year: "2024", title: "Senior Developer", place: "Tech Corp", type: "experience", color: "bg-funky-pink" },
-  { year: "2023", title: "Full Stack Engineer", place: "StartupX", type: "experience", color: "bg-funky-teal" },
-  { year: "2022", title: "M.S. Computer Science", place: "MIT", type: "education", color: "bg-funky-purple" },
-  { year: "2021", title: "Frontend Developer", place: "Agency Inc", type: "experience", color: "bg-funky-orange" },
-  { year: "2020", title: "B.S. Software Engineering", place: "Stanford", type: "education", color: "bg-funky-yellow" },
-  { year: "2019", title: "Intern", place: "Google", type: "experience", color: "bg-funky-green" },
+  { year: "2024", title: "Senior Developer", place: "Tech Corp", type: "experience" },
+  { year: "2023", title: "Full Stack Engineer", place: "StartupX", type: "experience" },
+  { year: "2022", title: "M.S. Computer Science", place: "MIT", type: "education" },
+  { year: "2021", title: "Frontend Developer", place: "Agency Inc", type: "experience" },
+  { year: "2020", title: "B.S. Software Engineering", place: "Stanford", type: "education" },
+  { year: "2019", title: "Intern", place: "Google", type: "experience" },
 ];
 
 const Index = () => {
+  const projectsRef = useRef<HTMLDivElement>(null);
   const timelineRef = useRef<HTMLDivElement>(null);
   
+  const { scrollYProgress: projectsScrollProgress } = useScroll({
+    target: projectsRef,
+    offset: ["start center", "end center"],
+  });
+
   const { scrollYProgress: timelineScrollProgress } = useScroll({
     target: timelineRef,
     offset: ["start end", "end start"],
   });
 
-  // Timeline horizontal scroll - moves left as user scrolls down
-  const timelineX = useTransform(timelineScrollProgress, [0.2, 0.8], ["5%", "-55%"]);
+  // Card spread animation
+  const spread = useTransform(projectsScrollProgress, [0, 0.6], [0, 1]);
+
+  // Timeline horizontal scroll
+  const timelineX = useTransform(timelineScrollProgress, [0.2, 0.8], ["5%", "-50%"]);
 
   return (
     <div className="bg-background">
@@ -70,8 +79,8 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Projects Section */}
-      <section className="py-24 px-6">
+      {/* Projects Section with Card Stack Animation */}
+      <section ref={projectsRef} className="min-h-[150vh] py-24 px-6">
         <div className="container mx-auto">
           {/* Title */}
           <motion.div 
@@ -87,36 +96,62 @@ const Index = () => {
             <div className="mt-4 h-1 w-24 bg-funky-yellow rounded-full mx-auto" />
           </motion.div>
 
-          {/* 2 Column Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-            {projects.map((project, index) => (
-              <motion.div
-                key={project.title}
-                initial={{ opacity: 0, y: 40, rotate: (index - 2.5) * 3 }}
-                whileInView={{ opacity: 1, y: 0, rotate: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1, duration: 0.5 }}
-              >
-                <ProjectCard
-                  title={project.title}
-                  description={project.description}
-                  color={project.color}
-                  index={index}
-                />
-              </motion.div>
-            ))}
+          {/* Stacked Cards that spread to 2-column grid */}
+          <div className="relative h-[700px] max-w-4xl mx-auto">
+            {projects.map((project, index) => {
+              const row = Math.floor(index / 2);
+              const col = index % 2;
+              const totalCards = projects.length;
+              
+              return (
+                <motion.div
+                  key={project.title}
+                  className="absolute w-[280px] md:w-[340px]"
+                  style={{
+                    top: useTransform(
+                      spread,
+                      [0, 1],
+                      [index * 12, row * 220]
+                    ),
+                    left: useTransform(
+                      spread,
+                      [0, 1],
+                      [`calc(50% - 170px + ${index * 8}px)`, col === 0 ? '0%' : '52%']
+                    ),
+                    rotate: useTransform(
+                      spread,
+                      [0, 1],
+                      [(index - 2.5) * 5, 0]
+                    ),
+                    zIndex: totalCards - index,
+                    scale: useTransform(
+                      spread,
+                      [0, 1],
+                      [1 - index * 0.03, 1]
+                    ),
+                  }}
+                >
+                  <ProjectCard
+                    title={project.title}
+                    description={project.description}
+                    color={project.color}
+                    index={index}
+                  />
+                </motion.div>
+              );
+            })}
           </div>
         </div>
       </section>
 
-      {/* Timeline Section */}
+      {/* Timeline Section - Simple text with line */}
       <section 
         ref={timelineRef}
-        className="min-h-[150vh] relative"
+        className="min-h-[120vh] relative mt-24"
       >
         <div className="sticky top-0 h-screen flex flex-col justify-center overflow-hidden">
           {/* Section Title */}
-          <div className="container mx-auto px-6 mb-16">
+          <div className="container mx-auto px-6 mb-20">
             <motion.h2 
               className="text-4xl md:text-6xl font-outfit font-bold text-foreground"
               initial={{ opacity: 0, y: 30 }}
@@ -128,78 +163,67 @@ const Index = () => {
             <p className="text-muted-foreground font-space mt-2">experience & education</p>
           </div>
 
-          {/* Horizontal Timeline with Line */}
+          {/* Horizontal Timeline - Simple with line and circles */}
           <div className="relative">
-            {/* The actual timeline line */}
-            <div className="absolute top-1/2 left-0 right-0 h-1 bg-foreground/10 -translate-y-1/2" />
+            {/* The timeline line */}
+            <div className="absolute top-[50%] left-0 w-[200%] h-0.5 bg-foreground/15" />
             
             <motion.div 
-              className="flex items-center gap-0 px-6"
+              className="flex items-center"
               style={{ x: timelineX }}
             >
               {timeline.map((item, index) => (
                 <div key={index} className="flex items-center">
                   {/* Timeline Item */}
-                  <div className="flex flex-col items-center min-w-[320px] md:min-w-[380px]">
-                    {/* Card above line for even, below for odd */}
-                    <motion.div
-                      className={`${item.color} rounded-2xl p-6 w-[280px] md:w-[320px] relative shadow-card ${
-                        index % 2 === 0 ? 'mb-8' : 'mt-8 order-2'
-                      }`}
-                      initial={{ opacity: 0, y: index % 2 === 0 ? -30 : 30 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: index * 0.1 }}
-                    >
-                      {/* Type badge */}
-                      <span className={`inline-block px-3 py-1 rounded-full text-xs font-space font-bold mb-3 bg-foreground/10 text-foreground`}>
-                        {item.type}
-                      </span>
-                      
+                  <div className="flex flex-col items-center min-w-[280px] md:min-w-[320px] px-4">
+                    {/* Content above or below line */}
+                    <div className={`flex flex-col items-center ${index % 2 === 0 ? 'mb-10' : 'mt-10 order-2'}`}>
                       {/* Year */}
-                      <div className="text-4xl font-outfit font-bold text-foreground/20 mb-1">
+                      <motion.span 
+                        className="text-5xl md:text-6xl font-outfit font-bold text-funky-pink/30"
+                        initial={{ opacity: 0 }}
+                        whileInView={{ opacity: 1 }}
+                        viewport={{ once: true }}
+                      >
                         {item.year}
-                      </div>
+                      </motion.span>
                       
                       {/* Title */}
-                      <h3 className="text-xl font-outfit font-bold text-foreground mb-1">
+                      <h3 className="text-xl md:text-2xl font-outfit font-bold text-foreground mt-2 text-center">
                         {item.title}
                       </h3>
                       
                       {/* Place */}
-                      <p className="text-foreground/70 font-space text-sm">
+                      <p className="text-muted-foreground font-space text-sm mt-1">
                         {item.place}
                       </p>
-
-                      {/* Connector line to circle */}
-                      <div className={`absolute left-1/2 w-0.5 h-8 bg-foreground/30 -translate-x-1/2 ${
-                        index % 2 === 0 ? '-bottom-8' : '-top-8'
-                      }`} />
-                    </motion.div>
+                      
+                      {/* Type */}
+                      <span className={`text-xs font-space mt-2 ${
+                        item.type === 'experience' ? 'text-funky-teal' : 'text-funky-purple'
+                      }`}>
+                        {item.type}
+                      </span>
+                    </div>
 
                     {/* Circle on the line */}
                     <motion.div 
-                      className={`w-6 h-6 rounded-full ${item.color} border-4 border-background shadow-lg z-10 ${
-                        index % 2 === 0 ? '' : 'order-1'
-                      }`}
+                      className={`w-5 h-5 rounded-full border-4 border-background shadow-lg z-10 ${
+                        item.type === 'experience' ? 'bg-funky-teal' : 'bg-funky-purple'
+                      } ${index % 2 === 0 ? '' : 'order-1'}`}
                       initial={{ scale: 0 }}
                       whileInView={{ scale: 1 }}
                       viewport={{ once: true }}
-                      transition={{ delay: index * 0.1 + 0.2, type: "spring" }}
+                      transition={{ delay: 0.1, type: "spring" }}
                     />
                   </div>
-
-                  {/* Connecting line between circles */}
-                  {index < timeline.length - 1 && (
-                    <div className="w-16 md:w-24 h-1 bg-foreground/20 -mx-8" />
-                  )}
                 </div>
               ))}
             </motion.div>
           </div>
 
           {/* Scroll indicator */}
-          <div className="container mx-auto px-6 mt-16">
+          <div className="container mx-auto px-6 mt-20">
             <p className="text-muted-foreground font-space text-sm flex items-center gap-2">
               <motion.span
                 animate={{ x: [0, 10, 0] }}
@@ -207,7 +231,7 @@ const Index = () => {
               >
                 →
               </motion.span>
-              keep scrolling to explore timeline
+              keep scrolling
             </p>
           </div>
         </div>

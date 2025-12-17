@@ -32,28 +32,27 @@ const Index = () => {
 
   const { scrollYProgress: timelineScrollProgress } = useScroll({
     target: timelineRef,
-    offset: ["start end", "end start"],
+    offset: ["start start", "end end"],
   });
 
   // Card spread animation - only starts when section is at top
   const spread = useTransform(projectsScrollProgress, [0, 0.5], [0, 1]);
 
   // Timeline horizontal scroll
-  const timelineX = useTransform(timelineScrollProgress, [0.2, 0.8], ["5%", "-50%"]);
+  const timelineX = useTransform(timelineScrollProgress, [0, 0.7], ["5%", "-55%"]);
 
   return (
     <div className="bg-background">
-      {/* Hero Section - Welcome */}
-      <section className="min-h-screen flex items-center justify-center">
-        <div className="text-center">
+      {/* About Me Section */}
+      <section className="min-h-screen flex items-center justify-center px-6">
+        <div className="text-center max-w-3xl">
           <motion.h1 
-            className="text-6xl md:text-8xl font-outfit font-bold text-foreground"
+            className="text-5xl md:text-7xl font-outfit font-bold text-foreground"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            hey{" "}
-            <span className="text-funky-pink">welcome!</span>
+            Hi I'm <span className="text-funky-pink">Marwa</span>
             <motion.span
               animate={{ rotate: [0, 20, -20, 0] }}
               transition={{ duration: 1, repeat: Infinity, repeatDelay: 2 }}
@@ -65,15 +64,15 @@ const Index = () => {
           <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 0.5 }}
-            className="mt-6 text-xl text-muted-foreground font-space"
+            transition={{ delay: 0.4 }}
+            className="mt-8 text-xl md:text-2xl text-muted-foreground font-space leading-relaxed"
           >
-            scroll down to explore
+            I could write a long "About Me," but honestly the projects below say it better. Go take a look.
           </motion.p>
           <motion.div
             animate={{ y: [0, 10, 0] }}
             transition={{ duration: 1.5, repeat: Infinity }}
-            className="mt-8 text-3xl"
+            className="mt-12 text-3xl text-funky-teal"
           >
             ↓
           </motion.div>

@@ -36,17 +36,17 @@
 
     --radius: 1rem;
 
-    /* Funky colors */
-    --funky-pink: 340 82% 62%;
-    --funky-teal: 180 70% 50%;
-    --funky-yellow: 45 100% 60%;
-    --funky-orange: 25 95% 60%;
-    --funky-purple: 280 70% 60%;
-    --funky-green: 150 70% 50%;
+    /* Funky colors - BRIGHT & SOLID */
+    --funky-pink: 340 90% 75%;
+    --funky-teal: 175 80% 65%;
+    --funky-yellow: 50 100% 70%;
+    --funky-orange: 25 100% 70%;
+    --funky-purple: 270 85% 75%;
+    --funky-green: 140 75% 60%;
 
-    /* Shadows */
-    --shadow-card: 0 8px 30px -10px hsl(var(--funky-pink) / 0.2);
-    --shadow-hover: 0 20px 40px -15px hsl(var(--funky-pink) / 0.3);
+    /* Shadows - more dramatic */
+    --shadow-card: 0 10px 40px -10px hsl(0 0% 0% / 0.15), 0 4px 6px -2px hsl(0 0% 0% / 0.1);
+    --shadow-hover: 0 25px 50px -12px hsl(0 0% 0% / 0.25), 0 8px 16px -4px hsl(0 0% 0% / 0.15);
   }
 
   * {

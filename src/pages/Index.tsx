@@ -3,12 +3,12 @@ import { useRef } from "react";
 import ProjectCard from "@/components/ProjectCard";
 
 const projects = [
-  { title: "Brand Identity", description: "Visual storytelling for modern brands", color: "bg-funky-pink/20" },
-  { title: "Web Experience", description: "Interactive digital journeys", color: "bg-funky-teal/20" },
-  { title: "Mobile App", description: "Intuitive user interfaces", color: "bg-funky-yellow/30" },
-  { title: "Motion Design", description: "Bringing ideas to life", color: "bg-funky-orange/20" },
-  { title: "Photography", description: "Capturing authentic moments", color: "bg-funky-purple/20" },
-  { title: "Illustration", description: "Custom visual narratives", color: "bg-funky-green/20" },
+  { title: "AI Dashboard", description: "Real-time ML analytics & visualization platform", color: "bg-funky-pink" },
+  { title: "Web3 Exchange", description: "Decentralized crypto trading interface", color: "bg-funky-teal" },
+  { title: "Mobile Fintech", description: "Next-gen payment & banking app", color: "bg-funky-yellow" },
+  { title: "SaaS Platform", description: "Cloud-native productivity suite", color: "bg-funky-orange" },
+  { title: "IoT Controller", description: "Smart home automation system", color: "bg-funky-purple" },
+  { title: "Dev Tools", description: "Code collaboration & CI/CD pipeline", color: "bg-funky-green" },
 ];
 
 const Index = () => {
@@ -85,38 +85,38 @@ const Index = () => {
           </motion.div>
 
           {/* Right side - Stacked Cards */}
-          <div className="lg:w-2/3 relative h-[520px] w-full">
+          <div className="lg:w-2/3 relative h-[600px] w-full">
             {projects.map((project, index) => {
-              const row = Math.floor(index / 2);
-              const col = index % 2;
+              const row = Math.floor(index / 3);
+              const col = index % 3;
               const totalCards = projects.length;
               
               return (
                 <motion.div
                   key={project.title}
-                  className="absolute w-[280px] md:w-[320px]"
+                  className="absolute w-[240px] md:w-[280px]"
                   style={{
-                    // Stacked position: cards offset slightly, then spread to grid
+                    // Stacked position: cards offset slightly, then spread to 3-column grid
                     top: useTransform(
                       spread,
                       [0, 1],
-                      [index * 6, row * 175]
+                      [index * 8, row * 240]
                     ),
                     left: useTransform(
                       spread,
                       [0, 1],
-                      [`calc(50% - 160px + ${index * 4}px)`, `${col * 340}px`]
+                      [`calc(50% - 140px + ${index * 6}px)`, `${col * 300}px`]
                     ),
                     rotate: useTransform(
                       spread,
                       [0, 1],
-                      [(index - 2.5) * 2.5, 0]
+                      [(index - 2.5) * 4, 0]
                     ),
                     zIndex: totalCards - index,
                     scale: useTransform(
                       spread,
                       [0, 1],
-                      [1 - index * 0.015, 1]
+                      [1 - index * 0.02, 1]
                     ),
                   }}
                 >

@@ -11,23 +11,42 @@ const projects = [
   { title: "Dev Tools", description: "Code collaboration & CI/CD pipeline", color: "bg-funky-green" },
 ];
 
+const timeline = [
+  { year: "2024", title: "Senior Developer", place: "Tech Corp", type: "experience", color: "bg-funky-pink" },
+  { year: "2023", title: "Full Stack Engineer", place: "StartupX", type: "experience", color: "bg-funky-teal" },
+  { year: "2022", title: "M.S. Computer Science", place: "MIT", type: "education", color: "bg-funky-purple" },
+  { year: "2021", title: "Frontend Developer", place: "Agency Inc", type: "experience", color: "bg-funky-orange" },
+  { year: "2020", title: "B.S. Software Engineering", place: "Stanford", type: "education", color: "bg-funky-yellow" },
+  { year: "2019", title: "Intern", place: "Google", type: "experience", color: "bg-funky-green" },
+];
+
 const Index = () => {
   const containerRef = useRef<HTMLDivElement>(null);
+  const timelineRef = useRef<HTMLDivElement>(null);
+  
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end end"],
   });
 
-  // Welcome fades out from 0-15% scroll
-  const welcomeOpacity = useTransform(scrollYProgress, [0, 0.12], [1, 0]);
-  const welcomeY = useTransform(scrollYProgress, [0, 0.15], [0, -150]);
+  const { scrollYProgress: timelineScrollProgress } = useScroll({
+    target: timelineRef,
+    offset: ["start end", "end start"],
+  });
 
-  // Cards section appears from 10-20% and stays, spread happens 40-70%
-  const sectionOpacity = useTransform(scrollYProgress, [0.1, 0.2], [0, 1]);
-  const spread = useTransform(scrollYProgress, [0.4, 0.75], [0, 1]);
+  // Welcome fades out from 0-10% scroll
+  const welcomeOpacity = useTransform(scrollYProgress, [0, 0.08], [1, 0]);
+  const welcomeY = useTransform(scrollYProgress, [0, 0.1], [0, -150]);
+
+  // Cards section appears from 8-15% and stays until 50%
+  const sectionOpacity = useTransform(scrollYProgress, [0.08, 0.15, 0.5, 0.55], [0, 1, 1, 0]);
+  const spread = useTransform(scrollYProgress, [0.2, 0.45], [0, 1]);
+
+  // Timeline horizontal scroll
+  const timelineX = useTransform(timelineScrollProgress, [0, 1], ["0%", "-60%"]);
 
   return (
-    <div ref={containerRef} className="min-h-[400vh] bg-background">
+    <div ref={containerRef} className="min-h-[600vh] bg-background">
       {/* Hero Section - Welcome */}
       <motion.section 
         className="h-screen flex items-center justify-center fixed top-0 left-0 right-0 z-20 pointer-events-none"
@@ -68,55 +87,54 @@ const Index = () => {
         className="fixed top-0 left-0 right-0 h-screen flex items-center z-10"
         style={{ opacity: sectionOpacity }}
       >
-        <div className="container mx-auto px-6 flex flex-col lg:flex-row items-center gap-12">
+        <div className="container mx-auto px-6 flex flex-col lg:flex-row items-center gap-8">
           {/* Left side - Title */}
           <motion.div 
-            className="lg:w-1/3 flex-shrink-0"
+            className="lg:w-1/4 flex-shrink-0"
             style={{ 
-              opacity: useTransform(scrollYProgress, [0.15, 0.25], [0, 1]),
-              x: useTransform(scrollYProgress, [0.15, 0.25], [-50, 0])
+              opacity: useTransform(scrollYProgress, [0.12, 0.2], [0, 1]),
+              x: useTransform(scrollYProgress, [0.12, 0.2], [-50, 0])
             }}
           >
-            <h2 className="text-4xl md:text-6xl font-outfit font-bold text-foreground leading-tight">
+            <h2 className="text-4xl md:text-5xl font-outfit font-bold text-foreground leading-tight">
               look into my{" "}
               <span className="text-funky-teal">projects</span>
             </h2>
             <div className="mt-4 h-1 w-24 bg-funky-yellow rounded-full" />
           </motion.div>
 
-          {/* Right side - Stacked Cards */}
-          <div className="lg:w-2/3 relative h-[600px] w-full">
+          {/* Right side - 2 Column Grid */}
+          <div className="lg:w-3/4 relative h-[650px] w-full">
             {projects.map((project, index) => {
-              const row = Math.floor(index / 3);
-              const col = index % 3;
+              const row = Math.floor(index / 2);
+              const col = index % 2;
               const totalCards = projects.length;
               
               return (
                 <motion.div
                   key={project.title}
-                  className="absolute w-[240px] md:w-[280px]"
+                  className="absolute w-[280px] md:w-[320px]"
                   style={{
-                    // Stacked position: cards offset slightly, then spread to 3-column grid
                     top: useTransform(
                       spread,
                       [0, 1],
-                      [index * 8, row * 240]
+                      [index * 10, row * 210]
                     ),
                     left: useTransform(
                       spread,
                       [0, 1],
-                      [`calc(50% - 140px + ${index * 6}px)`, `${col * 300}px`]
+                      [`calc(50% - 160px + ${index * 8}px)`, `${col * 350}px`]
                     ),
                     rotate: useTransform(
                       spread,
                       [0, 1],
-                      [(index - 2.5) * 4, 0]
+                      [(index - 2.5) * 5, 0]
                     ),
                     zIndex: totalCards - index,
                     scale: useTransform(
                       spread,
                       [0, 1],
-                      [1 - index * 0.02, 1]
+                      [1 - index * 0.025, 1]
                     ),
                   }}
                 >
@@ -133,8 +151,83 @@ const Index = () => {
         </div>
       </motion.section>
 
-      {/* Spacer for scroll */}
-      <div className="h-screen" />
+      {/* Spacer for projects animation */}
+      <div className="h-[300vh]" />
+
+      {/* Timeline Section */}
+      <section 
+        ref={timelineRef}
+        className="min-h-[200vh] relative overflow-hidden"
+      >
+        <div className="sticky top-0 h-screen flex flex-col justify-center overflow-hidden">
+          {/* Section Title */}
+          <div className="container mx-auto px-6 mb-12">
+            <h2 className="text-4xl md:text-6xl font-outfit font-bold text-foreground">
+              my <span className="text-funky-purple">journey</span>
+            </h2>
+            <p className="text-muted-foreground font-space mt-2">experience & education</p>
+          </div>
+
+          {/* Horizontal Timeline */}
+          <motion.div 
+            className="flex gap-8 px-6"
+            style={{ x: timelineX }}
+          >
+            {timeline.map((item, index) => (
+              <motion.div
+                key={index}
+                className={`${item.color} min-w-[350px] md:min-w-[400px] rounded-3xl p-8 relative overflow-hidden flex-shrink-0`}
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.1 }}
+              >
+                {/* Decorative circle */}
+                <div className="absolute -top-10 -right-10 w-32 h-32 bg-foreground/5 rounded-full" />
+                
+                {/* Type badge */}
+                <span className={`inline-block px-3 py-1 rounded-full text-xs font-space font-bold mb-4 ${
+                  item.type === 'experience' ? 'bg-foreground/10 text-foreground' : 'bg-foreground/20 text-foreground'
+                }`}>
+                  {item.type}
+                </span>
+                
+                {/* Year */}
+                <div className="text-5xl font-outfit font-bold text-foreground/20 mb-2">
+                  {item.year}
+                </div>
+                
+                {/* Title */}
+                <h3 className="text-2xl font-outfit font-bold text-foreground mb-2">
+                  {item.title}
+                </h3>
+                
+                {/* Place */}
+                <p className="text-foreground/70 font-space">
+                  {item.place}
+                </p>
+
+                {/* Connection line */}
+                {index < timeline.length - 1 && (
+                  <div className="absolute right-0 top-1/2 w-8 h-1 bg-foreground/20 translate-x-full" />
+                )}
+              </motion.div>
+            ))}
+          </motion.div>
+
+          {/* Scroll indicator */}
+          <div className="container mx-auto px-6 mt-8">
+            <p className="text-muted-foreground font-space text-sm flex items-center gap-2">
+              <motion.span
+                animate={{ x: [0, 10, 0] }}
+                transition={{ duration: 1.5, repeat: Infinity }}
+              >
+                →
+              </motion.span>
+              keep scrolling to explore
+            </p>
+          </div>
+        </div>
+      </section>
     </div>
   );
 };

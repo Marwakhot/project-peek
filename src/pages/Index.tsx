@@ -18,21 +18,25 @@ const Index = () => {
     offset: ["start start", "end end"],
   });
 
-  const spread = useTransform(scrollYProgress, [0, 0.5], [0, 1]);
+  // Welcome fades out from 0-15% scroll
+  const welcomeOpacity = useTransform(scrollYProgress, [0, 0.12], [1, 0]);
+  const welcomeY = useTransform(scrollYProgress, [0, 0.15], [0, -150]);
+
+  // Cards section appears from 10-20% and stays, spread happens 40-70%
+  const sectionOpacity = useTransform(scrollYProgress, [0.1, 0.2], [0, 1]);
+  const spread = useTransform(scrollYProgress, [0.4, 0.75], [0, 1]);
 
   return (
-    <div ref={containerRef} className="min-h-[300vh] bg-background">
-      {/* Hero Section */}
-      <section className="h-screen flex items-center justify-center sticky top-0">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          className="text-center"
-        >
+    <div ref={containerRef} className="min-h-[400vh] bg-background">
+      {/* Hero Section - Welcome */}
+      <motion.section 
+        className="h-screen flex items-center justify-center fixed top-0 left-0 right-0 z-20 pointer-events-none"
+        style={{ opacity: welcomeOpacity, y: welcomeY }}
+      >
+        <div className="text-center">
           <h1 className="text-6xl md:text-8xl font-outfit font-bold text-foreground">
             hey{" "}
-            <span className="text-funky-pink">welcome</span>
+            <span className="text-funky-pink">welcome!</span>
             <motion.span
               animate={{ rotate: [0, 20, -20, 0] }}
               transition={{ duration: 1, repeat: Infinity, repeatDelay: 2 }}
@@ -56,72 +60,81 @@ const Index = () => {
           >
             ↓
           </motion.div>
-        </motion.div>
-      </section>
+        </div>
+      </motion.section>
 
       {/* Projects Section */}
-      <section className="min-h-[200vh] relative">
-        <div className="sticky top-0 h-screen flex items-center overflow-hidden">
-          <div className="container mx-auto px-6 flex flex-col lg:flex-row items-center lg:items-start gap-12">
-            {/* Left side - Title */}
-            <motion.div 
-              className="lg:w-1/3 flex-shrink-0"
-              style={{ opacity: useTransform(scrollYProgress, [0.1, 0.3], [0, 1]) }}
-            >
-              <h2 className="text-4xl md:text-6xl font-outfit font-bold text-foreground leading-tight">
-                look into my{" "}
-                <span className="text-funky-teal">projects</span>
-              </h2>
-              <div className="mt-4 h-1 w-24 bg-funky-yellow rounded-full" />
-            </motion.div>
+      <motion.section 
+        className="fixed top-0 left-0 right-0 h-screen flex items-center z-10"
+        style={{ opacity: sectionOpacity }}
+      >
+        <div className="container mx-auto px-6 flex flex-col lg:flex-row items-center gap-12">
+          {/* Left side - Title */}
+          <motion.div 
+            className="lg:w-1/3 flex-shrink-0"
+            style={{ 
+              opacity: useTransform(scrollYProgress, [0.15, 0.25], [0, 1]),
+              x: useTransform(scrollYProgress, [0.15, 0.25], [-50, 0])
+            }}
+          >
+            <h2 className="text-4xl md:text-6xl font-outfit font-bold text-foreground leading-tight">
+              look into my{" "}
+              <span className="text-funky-teal">projects</span>
+            </h2>
+            <div className="mt-4 h-1 w-24 bg-funky-yellow rounded-full" />
+          </motion.div>
 
-            {/* Right side - Cards */}
-            <div className="lg:w-2/3 relative h-[500px] w-full">
-              {projects.map((project, index) => {
-                const row = Math.floor(index / 2);
-                const col = index % 2;
-                
-                return (
-                  <motion.div
-                    key={project.title}
-                    className="absolute w-[calc(50%-12px)]"
-                    style={{
-                      top: useTransform(
-                        spread,
-                        [0, 1],
-                        [index * 8, row * 180]
-                      ),
-                      left: useTransform(
-                        spread,
-                        [0, 1],
-                        [index * 4, col * 52 + "%"]
-                      ),
-                      rotate: useTransform(
-                        spread,
-                        [0, 1],
-                        [(index - 2) * 3, 0]
-                      ),
-                      zIndex: projects.length - index,
-                      scale: useTransform(
-                        spread,
-                        [0, 1],
-                        [1 - index * 0.02, 1]
-                      ),
-                    }}
-                  >
-                    <ProjectCard
-                      title={project.title}
-                      description={project.description}
-                      color={project.color}
-                      index={index}
-                    />
-                  </motion.div>
-                );
-              })}
-            </div>
+          {/* Right side - Stacked Cards */}
+          <div className="lg:w-2/3 relative h-[520px] w-full">
+            {projects.map((project, index) => {
+              const row = Math.floor(index / 2);
+              const col = index % 2;
+              const totalCards = projects.length;
+              
+              return (
+                <motion.div
+                  key={project.title}
+                  className="absolute w-[280px] md:w-[320px]"
+                  style={{
+                    // Stacked position: cards offset slightly, then spread to grid
+                    top: useTransform(
+                      spread,
+                      [0, 1],
+                      [index * 6, row * 175]
+                    ),
+                    left: useTransform(
+                      spread,
+                      [0, 1],
+                      [`calc(50% - 160px + ${index * 4}px)`, `${col * 340}px`]
+                    ),
+                    rotate: useTransform(
+                      spread,
+                      [0, 1],
+                      [(index - 2.5) * 2.5, 0]
+                    ),
+                    zIndex: totalCards - index,
+                    scale: useTransform(
+                      spread,
+                      [0, 1],
+                      [1 - index * 0.015, 1]
+                    ),
+                  }}
+                >
+                  <ProjectCard
+                    title={project.title}
+                    description={project.description}
+                    color={project.color}
+                    index={index}
+                  />
+                </motion.div>
+              );
+            })}
           </div>
         </div>
-      </section>
+      </motion.section>
+
+      {/* Spacer for scroll */}
+      <div className="h-screen" />
     </div>
   );
 };

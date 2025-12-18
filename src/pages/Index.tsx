@@ -11,21 +11,20 @@ const projects = [
   { title: "Dev Tools", description: "Code collaboration & CI/CD pipeline", color: "bg-funky-green" },
 ];
 
-const education = [
-  { year: "2024-2027", title: "Bachelor of Computer Science", subtitle: "Major: AI and Big Data", place: "University of Wollongong Dubai" },
-  { year: "2022-2024", title: "High School Diploma", subtitle: "", place: "NIMS, Dubai" },
+const currentActivities = [
+  { title: "Data Science Intern", period: "Oct 2025 - April 2026", place: "Alamar", color: "text-funky-orange" },
+  { title: "Studying Bachelor of Computer Science", period: "Major: AI and Big Data", place: "University of Wollongong Dubai", color: "text-funky-teal" },
 ];
 
-const experience = [
-  { year: "2025-2026", title: "Data Science Intern", subtitle: "Oct 2025 - April 2026", place: "Alamar" },
-  { year: "2025", title: "Gitex Representative", subtitle: "Oct 2025", place: "dreamloop.ai" },
-  { year: "2023-2024", title: "School Headgirl", subtitle: "", place: "NIMS" },
-  { year: "2023-2024", title: "Director General NIMSMUN", subtitle: "", place: "NIMS" },
+const pastActivities = [
+  { title: "Gitex Representative", period: "Oct 2025", place: "dreamloop.ai" },
+  { title: "High School Diploma", period: "2022-2024", place: "NIMS, Dubai" },
+  { title: "School Headgirl", period: "2023-2024", place: "NIMS" },
+  { title: "Director General NIMSMUN", period: "2023-2024", place: "NIMS" },
 ];
 
 const Index = () => {
   const projectsRef = useRef<HTMLDivElement>(null);
-  const timelineRef = useRef<HTMLDivElement>(null);
   
   // Track when projects section hits the top of viewport
   const { scrollYProgress: projectsScrollProgress } = useScroll({
@@ -33,16 +32,8 @@ const Index = () => {
     offset: ["start start", "end end"],
   });
 
-  const { scrollYProgress: timelineScrollProgress } = useScroll({
-    target: timelineRef,
-    offset: ["start start", "end end"],
-  });
-
   // Card spread animation - only starts when section is at top
   const spread = useTransform(projectsScrollProgress, [0, 0.5], [0, 1]);
-
-  // Timeline horizontal scroll
-  const timelineX = useTransform(timelineScrollProgress, [0, 0.7], ["5%", "-55%"]);
 
   return (
     <div className="bg-background">
@@ -149,125 +140,74 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Timeline Section - Dual timeline */}
-      <section 
-        ref={timelineRef}
-        className="min-h-[150vh] relative mt-24"
-      >
-        <div className="sticky top-0 h-screen flex flex-col justify-center overflow-hidden">
+      {/* Journey Section */}
+      <section className="min-h-screen py-24 mt-24">
+        <div className="container mx-auto px-6">
           {/* Section Title */}
-          <div className="container mx-auto px-6 mb-12">
-            <motion.h2 
-              className="text-4xl md:text-6xl font-outfit font-bold text-foreground"
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-            >
-              my <span className="text-funky-purple">journey</span>
-            </motion.h2>
-            <div className="flex gap-8 mt-4">
-              <span className="text-funky-purple font-space text-sm flex items-center gap-2">
-                <span className="w-3 h-3 rounded-full bg-funky-purple" /> education
-              </span>
-              <span className="text-funky-teal font-space text-sm flex items-center gap-2">
-                <span className="w-3 h-3 rounded-full bg-funky-teal" /> experience
-              </span>
+          <motion.h2 
+            className="text-4xl md:text-6xl font-outfit font-bold text-foreground mb-16"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
+            my <span className="text-funky-pink">journey</span>
+          </motion.h2>
+
+          {/* Currently I'm */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="mb-16"
+          >
+            <h3 className="text-2xl md:text-3xl font-outfit font-bold text-foreground mb-8">
+              Currently I'm
+            </h3>
+            <div className="space-y-6 pl-6 border-l-4 border-funky-pink">
+              {currentActivities.map((item, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.1 }}
+                  className="relative"
+                >
+                  <div className="absolute -left-[26px] top-2 w-4 h-4 rounded-full bg-funky-pink" />
+                  <h4 className={`text-xl font-outfit font-bold ${item.color}`}>{item.title}</h4>
+                  <p className="text-muted-foreground font-space text-sm">{item.period}</p>
+                  <p className="text-foreground font-space">{item.place}</p>
+                </motion.div>
+              ))}
             </div>
-          </div>
+          </motion.div>
 
-          {/* Horizontal Dual Timeline */}
-          <div className="relative">
-            {/* The timeline line - centered */}
-            <div className="absolute top-1/2 -translate-y-1/2 left-0 w-[300%] h-1 bg-foreground/20" />
-            
-            <motion.div 
-              className="flex items-center"
-              style={{ x: timelineX }}
-            >
-              {/* Interleave education and experience */}
-              {[...education, ...experience].sort((a, b) => {
-                const yearA = parseInt(a.year.split('-')[0]);
-                const yearB = parseInt(b.year.split('-')[0]);
-                return yearB - yearA;
-              }).map((item, index) => {
-                const isEducation = education.includes(item);
-                
-                return (
-                  <div key={index} className="flex flex-col items-center min-w-[280px] md:min-w-[350px] px-6 relative">
-                    {/* Education - Above the line */}
-                    {isEducation && (
-                      <div className="flex flex-col items-center mb-8">
-                        <motion.span 
-                          className="text-3xl md:text-4xl font-outfit font-bold text-funky-purple/40"
-                          initial={{ opacity: 0 }}
-                          whileInView={{ opacity: 1 }}
-                          viewport={{ once: true }}
-                        >
-                          {item.year}
-                        </motion.span>
-                        <h3 className="text-lg md:text-xl font-outfit font-bold text-foreground mt-2 text-center">
-                          {item.title}
-                        </h3>
-                        {item.subtitle && (
-                          <p className="text-funky-purple font-space text-xs mt-1">{item.subtitle}</p>
-                        )}
-                        <p className="text-muted-foreground font-space text-sm mt-1 text-center">
-                          {item.place}
-                        </p>
-                      </div>
-                    )}
-
-                    {/* Circle on the line */}
-                    <motion.div 
-                      className={`w-5 h-5 rounded-full border-4 border-background shadow-lg z-10 ${
-                        isEducation ? 'bg-funky-purple' : 'bg-funky-teal'
-                      }`}
-                      initial={{ scale: 0 }}
-                      whileInView={{ scale: 1 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: 0.1, type: "spring" }}
-                    />
-
-                    {/* Experience - Below the line */}
-                    {!isEducation && (
-                      <div className="flex flex-col items-center mt-8">
-                        <motion.span 
-                          className="text-3xl md:text-4xl font-outfit font-bold text-funky-teal/40"
-                          initial={{ opacity: 0 }}
-                          whileInView={{ opacity: 1 }}
-                          viewport={{ once: true }}
-                        >
-                          {item.year}
-                        </motion.span>
-                        <h3 className="text-lg md:text-xl font-outfit font-bold text-foreground mt-2 text-center">
-                          {item.title}
-                        </h3>
-                        {item.subtitle && (
-                          <p className="text-funky-teal font-space text-xs mt-1">{item.subtitle}</p>
-                        )}
-                        <p className="text-muted-foreground font-space text-sm mt-1 text-center">
-                          {item.place}
-                        </p>
-                      </div>
-                    )}
-                  </div>
-                );
-              })}
-            </motion.div>
-          </div>
-
-          {/* Scroll indicator */}
-          <div className="container mx-auto px-6 mt-16">
-            <p className="text-muted-foreground font-space text-sm flex items-center gap-2">
-              <motion.span
-                animate={{ x: [0, 10, 0] }}
-                transition={{ duration: 1.5, repeat: Infinity }}
-              >
-                →
-              </motion.span>
-              keep scrolling
-            </p>
-          </div>
+          {/* I've been */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
+            <h3 className="text-2xl md:text-3xl font-outfit font-bold text-foreground mb-8">
+              I've been
+            </h3>
+            <div className="grid md:grid-cols-2 gap-6">
+              {pastActivities.map((item, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.1 }}
+                  className="p-6 rounded-xl bg-card shadow-card hover:shadow-hover transition-shadow"
+                >
+                  <h4 className="text-lg font-outfit font-bold text-foreground">{item.title}</h4>
+                  <p className="text-funky-orange font-space text-sm mt-1">{item.period}</p>
+                  <p className="text-muted-foreground font-space text-sm">{item.place}</p>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
         </div>
       </section>
 

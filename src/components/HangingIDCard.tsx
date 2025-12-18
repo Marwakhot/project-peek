@@ -8,15 +8,12 @@ const HangingIDCard = () => {
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.8, duration: 0.6 }}
     >
-      {/* String/Lanyard from top */}
-      <div className="absolute left-1/2 -translate-x-1/2 -top-32 flex flex-col items-center">
-        {/* Attachment point */}
-        <div className="w-3 h-3 rounded-full bg-foreground/60" />
-        
-        {/* Cloth-like string segments */}
+      {/* String/Lanyard from top - extends off screen */}
+      <div className="absolute left-1/2 -translate-x-1/2 -top-[200px] flex flex-col items-center">
+        {/* Long string that goes off screen */}
         <motion.div
-          className="w-1 bg-gradient-to-b from-foreground/60 via-foreground/40 to-foreground/50"
-          style={{ height: "60px" }}
+          className="w-1.5 bg-gradient-to-b from-foreground/40 via-foreground/50 to-foreground/60 rounded-full"
+          style={{ height: "200px" }}
           animate={{
             scaleX: [1, 1.1, 0.9, 1],
           }}
@@ -26,29 +23,6 @@ const HangingIDCard = () => {
             ease: "easeInOut",
           }}
         />
-        
-        {/* String curve effect */}
-        <svg width="40" height="30" className="absolute top-12 left-1/2 -translate-x-1/2">
-          <motion.path
-            d="M20 0 Q 20 15, 20 30"
-            stroke="hsl(var(--foreground) / 0.5)"
-            strokeWidth="3"
-            fill="none"
-            strokeLinecap="round"
-            animate={{
-              d: [
-                "M20 0 Q 25 15, 20 30",
-                "M20 0 Q 15 15, 20 30",
-                "M20 0 Q 25 15, 20 30",
-              ],
-            }}
-            transition={{
-              duration: 3,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
-          />
-        </svg>
       </div>
 
       {/* ID Card clip */}
@@ -71,7 +45,7 @@ const HangingIDCard = () => {
 
         {/* ID Card Body */}
         <motion.div
-          className="w-44 h-56 bg-gradient-to-br from-white via-gray-50 to-gray-100 rounded-xl shadow-hover overflow-hidden border border-gray-200"
+          className="w-52 h-64 bg-gradient-to-br from-white via-gray-50 to-gray-100 rounded-xl shadow-hover overflow-hidden border border-gray-200"
           animate={{
             rotateY: [-1, 1, -1],
           }}

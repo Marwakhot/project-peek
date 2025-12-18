@@ -39,10 +39,10 @@ const Index = () => {
   return (
     <div className="bg-background">
       {/* About Me Section */}
-      <section className="min-h-screen flex items-center justify-center px-6 overflow-hidden">
-        <div className="flex items-center gap-8 md:gap-16">
-          {/* Text content */}
-          <div className="text-center max-w-2xl">
+      <section className="min-h-screen flex items-center px-6 overflow-hidden">
+        <div className="container mx-auto flex items-center justify-between">
+          {/* Text content - left aligned */}
+          <div className="max-w-2xl">
             <motion.h1 
               className="text-5xl md:text-7xl font-outfit font-bold text-foreground"
               initial={{ opacity: 0, y: 30 }}

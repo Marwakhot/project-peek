@@ -143,42 +143,38 @@ const Index = () => {
       {/* Journey Section */}
       <section className="min-h-screen py-24 mt-24">
         <div className="container mx-auto px-6">
-          {/* Section Title */}
-          <motion.h2 
-            className="text-4xl md:text-6xl font-outfit font-bold text-foreground mb-16"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-          >
-            my <span className="text-funky-pink">journey</span>
-          </motion.h2>
-
           {/* Currently I'm */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="mb-16"
+            className="mb-20"
           >
             <h3 className="text-2xl md:text-3xl font-outfit font-bold text-foreground mb-8">
               Currently I'm
             </h3>
-            <div className="space-y-6 pl-6 border-l-4 border-funky-pink">
-              {currentActivities.map((item, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.1 }}
-                  className="relative"
-                >
-                  <div className="absolute -left-[26px] top-2 w-4 h-4 rounded-full bg-funky-pink" />
-                  <h4 className={`text-xl font-outfit font-bold ${item.color}`}>{item.title}</h4>
-                  <p className="text-muted-foreground font-space text-sm">{item.period}</p>
-                  <p className="text-foreground font-space">{item.place}</p>
-                </motion.div>
-              ))}
+            <div className="relative">
+              {/* Vertical line */}
+              <div className="absolute left-2 top-0 bottom-0 w-1 bg-funky-pink" />
+              <div className="space-y-8">
+                {currentActivities.map((item, index) => (
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, x: -20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: index * 0.1 }}
+                    className="relative flex items-start gap-6"
+                  >
+                    <div className="w-5 h-5 rounded-full bg-funky-pink border-4 border-background shadow-lg z-10 flex-shrink-0" />
+                    <div className="-mt-1">
+                      <h4 className={`text-xl font-outfit font-bold ${item.color}`}>{item.title}</h4>
+                      <p className="text-muted-foreground font-space text-sm">{item.period}</p>
+                      <p className="text-foreground font-space">{item.place}</p>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
             </div>
           </motion.div>
 
@@ -191,21 +187,28 @@ const Index = () => {
             <h3 className="text-2xl md:text-3xl font-outfit font-bold text-foreground mb-8">
               I've been
             </h3>
-            <div className="grid md:grid-cols-2 gap-6">
-              {pastActivities.map((item, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.1 }}
-                  className="p-6 rounded-xl bg-card shadow-card hover:shadow-hover transition-shadow"
-                >
-                  <h4 className="text-lg font-outfit font-bold text-foreground">{item.title}</h4>
-                  <p className="text-funky-orange font-space text-sm mt-1">{item.period}</p>
-                  <p className="text-muted-foreground font-space text-sm">{item.place}</p>
-                </motion.div>
-              ))}
+            <div className="relative">
+              {/* Vertical line */}
+              <div className="absolute left-2 top-0 bottom-0 w-1 bg-funky-orange" />
+              <div className="space-y-8">
+                {pastActivities.map((item, index) => (
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, x: -20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: index * 0.1 }}
+                    className="relative flex items-start gap-6"
+                  >
+                    <div className="w-5 h-5 rounded-full bg-funky-orange border-4 border-background shadow-lg z-10 flex-shrink-0" />
+                    <div className="-mt-1">
+                      <h4 className="text-lg font-outfit font-bold text-foreground">{item.title}</h4>
+                      <p className="text-funky-teal font-space text-sm">{item.period}</p>
+                      <p className="text-muted-foreground font-space text-sm">{item.place}</p>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
             </div>
           </motion.div>
         </div>

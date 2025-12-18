@@ -1,6 +1,7 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import ProjectCard from "@/components/ProjectCard";
+import HangingIDCard from "@/components/HangingIDCard";
 
 const projects = [
   { title: "AI Dashboard", description: "Real-time ML analytics & visualization platform", color: "bg-funky-pink" },
@@ -38,38 +39,46 @@ const Index = () => {
   return (
     <div className="bg-background">
       {/* About Me Section */}
-      <section className="min-h-screen flex items-center justify-center px-6">
-        <div className="text-center max-w-3xl">
-          <motion.h1 
-            className="text-5xl md:text-7xl font-outfit font-bold text-foreground"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-          >
-            Hi I'm <span className="text-funky-pink">Marwa</span>
-            <motion.span
-              animate={{ rotate: [0, 20, -20, 0] }}
-              transition={{ duration: 1, repeat: Infinity, repeatDelay: 2 }}
-              className="inline-block ml-4"
+      <section className="min-h-screen flex items-center justify-center px-6 overflow-hidden">
+        <div className="flex items-center gap-8 md:gap-16">
+          {/* Text content */}
+          <div className="text-center max-w-2xl">
+            <motion.h1 
+              className="text-5xl md:text-7xl font-outfit font-bold text-foreground"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
             >
-              👋
-            </motion.span>
-          </motion.h1>
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.4 }}
-            className="mt-8 text-xl md:text-2xl text-muted-foreground font-space leading-relaxed"
-          >
-            I could write a long "About Me," but honestly the projects below say it better. Go take a look.
-          </motion.p>
-          <motion.div
-            animate={{ y: [0, 10, 0] }}
-            transition={{ duration: 1.5, repeat: Infinity }}
-            className="mt-12 text-3xl text-funky-teal"
-          >
-            ↓
-          </motion.div>
+              Hi I'm <span className="text-funky-pink">Marwa</span>
+              <motion.span
+                animate={{ rotate: [0, 20, -20, 0] }}
+                transition={{ duration: 1, repeat: Infinity, repeatDelay: 2 }}
+                className="inline-block ml-4"
+              >
+                👋
+              </motion.span>
+            </motion.h1>
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.4 }}
+              className="mt-8 text-xl md:text-2xl text-muted-foreground font-space leading-relaxed"
+            >
+              I could write a long "About Me," but honestly the projects below say it better. Go take a look.
+            </motion.p>
+            <motion.div
+              animate={{ y: [0, 10, 0] }}
+              transition={{ duration: 1.5, repeat: Infinity }}
+              className="mt-12 text-3xl text-funky-teal"
+            >
+              ↓
+            </motion.div>
+          </div>
+
+          {/* Hanging ID Card */}
+          <div className="hidden md:block pt-32">
+            <HangingIDCard />
+          </div>
         </div>
       </section>
 

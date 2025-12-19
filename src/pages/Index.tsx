@@ -4,12 +4,14 @@ import ProjectCard from "@/components/ProjectCard";
 import HangingIDCard from "@/components/HangingIDCard";
 
 const projects = [
-  { title: "AI Dashboard", description: "Real-time ML analytics & visualization platform", color: "bg-funky-pink" },
-  { title: "Web3 Exchange", description: "Decentralized crypto trading interface", color: "bg-funky-teal" },
-  { title: "Mobile Fintech", description: "Next-gen payment & banking app", color: "bg-funky-yellow" },
-  { title: "SaaS Platform", description: "Cloud-native productivity suite", color: "bg-funky-orange" },
-  { title: "IoT Controller", description: "Smart home automation system", color: "bg-funky-purple" },
-  { title: "Dev Tools", description: "Code collaboration & CI/CD pipeline", color: "bg-funky-green" },
+  { title: "AI Dashboard", description: "Real-time ML analytics & visualization platform", color: "bg-funky-pink", github: "#" },
+  { title: "Web3 Exchange", description: "Decentralized crypto trading interface", color: "bg-funky-teal", github: "#" },
+  { title: "Mobile Fintech", description: "Next-gen payment & banking app", color: "bg-funky-yellow", github: "#" },
+  { title: "SaaS Platform", description: "Cloud-native productivity suite", color: "bg-funky-orange", github: "#" },
+  { title: "IoT Controller", description: "Smart home automation system", color: "bg-funky-purple", github: "#" },
+  { title: "Dev Tools", description: "Code collaboration & CI/CD pipeline", color: "bg-funky-green", github: "#" },
+  { title: "Data Pipeline", description: "ETL processing & data warehousing", color: "bg-funky-pink", github: "#" },
+  { title: "Chat Application", description: "Real-time messaging with AI features", color: "bg-funky-teal", github: "#" },
 ];
 
 const currentActivities = [
@@ -50,13 +52,6 @@ const Index = () => {
               transition={{ duration: 0.6 }}
             >
               Hi I'm <span className="text-funky-pink">Marwa</span>
-              <motion.span
-                animate={{ rotate: [0, 20, -20, 0] }}
-                transition={{ duration: 1, repeat: Infinity, repeatDelay: 2 }}
-                className="inline-block ml-4"
-              >
-                👋
-              </motion.span>
             </motion.h1>
             <motion.p
               initial={{ opacity: 0 }}
@@ -75,8 +70,8 @@ const Index = () => {
             </motion.div>
           </div>
 
-          {/* Hanging ID Card */}
-          <div className="hidden md:block pt-32">
+          {/* Hanging ID Card - moved more to center */}
+          <div className="hidden md:block pt-32 -ml-32">
             <HangingIDCard />
           </div>
         </div>
@@ -140,6 +135,7 @@ const Index = () => {
                       description={project.description}
                       color={project.color}
                       index={index}
+                      github={project.github}
                     />
                   </motion.div>
                 );

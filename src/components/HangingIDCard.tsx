@@ -9,11 +9,11 @@ const HangingIDCard = () => {
       transition={{ delay: 0.8, duration: 0.6 }}
     >
       {/* String/Lanyard from top - extends off screen */}
-      <div className="absolute left-1/2 -translate-x-1/2 -top-[200px] flex flex-col items-center">
+      <div className="absolute left-1/2 -translate-x-1/2 -top-[500px] flex flex-col items-center">
         {/* Long string that goes off screen */}
         <motion.div
           className="w-1.5 bg-gradient-to-b from-foreground/40 via-foreground/50 to-foreground/60 rounded-full"
-          style={{ height: "200px" }}
+          style={{ height: "500px" }}
           animate={{
             scaleX: [1, 1.1, 0.9, 1],
           }}
@@ -66,15 +66,15 @@ const HangingIDCard = () => {
             />
           </div>
 
-          {/* Photo placeholder */}
-          <div className="flex justify-center -mt-8">
-            <div className="w-16 h-16 rounded-full bg-gradient-to-br from-funky-teal to-funky-pink border-4 border-white shadow-lg flex items-center justify-center">
-              <span className="text-2xl font-outfit font-bold text-white">M</span>
+          {/* Photo placeholder - positioned above header */}
+          <div className="absolute -top-10 left-1/2 -translate-x-1/2">
+            <div className="w-20 h-20 rounded-full bg-gradient-to-br from-funky-teal to-funky-pink border-4 border-white shadow-lg flex items-center justify-center">
+              <span className="text-3xl font-outfit font-bold text-white">M</span>
             </div>
           </div>
 
           {/* Name */}
-          <div className="text-center mt-3 px-3">
+          <div className="text-center mt-14 px-3">
             <h3 className="font-outfit font-bold text-foreground text-lg">Marwa</h3>
             <p className="font-space text-xs text-muted-foreground mt-1">CS Student</p>
             <p className="font-space text-xs text-funky-pink mt-0.5">AI & Big Data</p>

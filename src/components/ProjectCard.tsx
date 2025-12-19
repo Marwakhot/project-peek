@@ -1,13 +1,15 @@
 import { motion } from "framer-motion";
+import { Github } from "lucide-react";
 
 interface ProjectCardProps {
   title: string;
   description: string;
   color: string;
   index: number;
+  github?: string;
 }
 
-const ProjectCard = ({ title, description, color, index }: ProjectCardProps) => {
+const ProjectCard = ({ title, description, color, index, github }: ProjectCardProps) => {
   return (
     <motion.div
       className={`${color} rounded-3xl p-5 h-48 flex flex-col justify-between shadow-card hover:shadow-hover transition-all duration-300 cursor-pointer border-2 border-foreground/10 backdrop-blur-none relative overflow-hidden group`}
@@ -31,11 +33,18 @@ const ProjectCard = ({ title, description, color, index }: ProjectCardProps) => 
       
       <div className="relative z-10">
         <p className="text-foreground/70 font-space text-sm mb-3">{description}</p>
-        <div className="flex items-center gap-2">
-          <span className="text-xs font-space text-foreground/50 group-hover:text-funky-teal transition-colors">
-            View Project →
+        <a 
+          href={github || "#"} 
+          target="_blank" 
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-foreground/10 hover:bg-foreground/20 transition-colors"
+          onClick={(e) => e.stopPropagation()}
+        >
+          <Github className="w-4 h-4 text-foreground/70" />
+          <span className="text-xs font-space text-foreground/70 group-hover:text-foreground transition-colors">
+            GitHub
           </span>
-        </div>
+        </a>
       </div>
       
       {/* Tech dots decoration */}

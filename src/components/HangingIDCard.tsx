@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-
+import { Github, Linkedin } from "lucide-react";
 const HangingIDCard = () => {
   return (
     <motion.div
@@ -78,6 +78,26 @@ const HangingIDCard = () => {
             <h3 className="font-outfit font-bold text-foreground text-xl">Marwa</h3>
             <p className="font-space text-sm text-muted-foreground mt-2">CS Student</p>
             <p className="font-space text-sm text-funky-pink mt-1">AI & Big Data</p>
+            
+            {/* Social Links */}
+            <div className="flex justify-center gap-3 mt-4">
+              <a 
+                href="https://linkedin.com/in/yourprofile" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="w-10 h-10 rounded-full bg-gradient-to-br from-funky-teal/20 to-funky-pink/20 flex items-center justify-center hover:from-funky-teal/40 hover:to-funky-pink/40 transition-all duration-300 group"
+              >
+                <Linkedin className="w-5 h-5 text-foreground/70 group-hover:text-funky-teal transition-colors" />
+              </a>
+              <a 
+                href="https://github.com/yourusername" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="w-10 h-10 rounded-full bg-gradient-to-br from-funky-teal/20 to-funky-pink/20 flex items-center justify-center hover:from-funky-teal/40 hover:to-funky-pink/40 transition-all duration-300 group"
+              >
+                <Github className="w-5 h-5 text-foreground/70 group-hover:text-funky-pink transition-colors" />
+              </a>
+            </div>
           </div>
 
           {/* Decorative elements */}

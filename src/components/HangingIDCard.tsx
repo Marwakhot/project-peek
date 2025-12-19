@@ -45,7 +45,7 @@ const HangingIDCard = () => {
 
         {/* ID Card Body */}
         <motion.div
-          className="w-52 h-64 bg-gradient-to-br from-white via-gray-50 to-gray-100 rounded-xl shadow-hover overflow-hidden border border-gray-200"
+          className="w-60 h-80 bg-gradient-to-br from-white via-gray-50 to-gray-100 rounded-xl shadow-hover overflow-visible border border-gray-200 relative"
           animate={{
             rotateY: [-1, 1, -1],
           }}
@@ -57,7 +57,7 @@ const HangingIDCard = () => {
           style={{ transformStyle: "preserve-3d" }}
         >
           {/* Header stripe */}
-          <div className="h-16 bg-gradient-to-r from-funky-pink via-funky-orange to-funky-teal relative overflow-hidden">
+          <div className="h-20 bg-gradient-to-r from-funky-pink via-funky-orange to-funky-teal relative overflow-hidden rounded-t-xl">
             <div className="absolute inset-0 bg-gradient-to-b from-white/20 to-transparent" />
             <motion.div
               className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent"
@@ -67,17 +67,17 @@ const HangingIDCard = () => {
           </div>
 
           {/* Photo placeholder - positioned above header */}
-          <div className="absolute -top-10 left-1/2 -translate-x-1/2">
-            <div className="w-20 h-20 rounded-full bg-gradient-to-br from-funky-teal to-funky-pink border-4 border-white shadow-lg flex items-center justify-center">
-              <span className="text-3xl font-outfit font-bold text-white">M</span>
+          <div className="absolute -top-12 left-1/2 -translate-x-1/2 z-20">
+            <div className="w-24 h-24 rounded-full bg-gradient-to-br from-funky-teal to-funky-pink border-4 border-white shadow-lg flex items-center justify-center">
+              <span className="text-4xl font-outfit font-bold text-white">M</span>
             </div>
           </div>
 
           {/* Name */}
-          <div className="text-center mt-14 px-3">
-            <h3 className="font-outfit font-bold text-foreground text-lg">Marwa</h3>
-            <p className="font-space text-xs text-muted-foreground mt-1">CS Student</p>
-            <p className="font-space text-xs text-funky-pink mt-0.5">AI & Big Data</p>
+          <div className="text-center mt-16 px-4">
+            <h3 className="font-outfit font-bold text-foreground text-xl">Marwa</h3>
+            <p className="font-space text-sm text-muted-foreground mt-2">CS Student</p>
+            <p className="font-space text-sm text-funky-pink mt-1">AI & Big Data</p>
           </div>
 
           {/* Decorative elements */}

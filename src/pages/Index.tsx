@@ -71,7 +71,7 @@ const Index = () => {
           </div>
 
           {/* Hanging ID Card - moved more to center */}
-          <div className="hidden md:block pt-32 -ml-32">
+          <div className="hidden md:block pt-32 -ml-64">
             <HangingIDCard />
           </div>
         </div>
@@ -105,7 +105,7 @@ const Index = () => {
                 return (
                   <motion.div
                     key={project.title}
-                    className="absolute w-[260px] md:w-[300px]"
+                    className="absolute w-[300px] md:w-[360px]"
                     style={{
                       top: useTransform(
                         spread,

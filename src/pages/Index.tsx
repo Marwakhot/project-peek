@@ -1,5 +1,5 @@
 import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import ProjectCard from "@/components/ProjectCard";
 import HangingIDCard from "@/components/HangingIDCard";
 
@@ -15,15 +15,47 @@ const projects = [
 ];
 
 const currentActivities = [
-  { title: "Data Science Intern", period: "Oct 2025 - April 2026", place: "Alamar", color: "text-funky-orange" },
-  { title: "Studying Bachelor of Computer Science", period: "Major: AI and Big Data", place: "University of Wollongong Dubai", color: "text-funky-teal" },
+  { 
+    title: "Data Science Intern", 
+    period: "Oct 2025 - April 2026", 
+    place: "Alamar", 
+    color: "text-funky-orange",
+    details: "Working on machine learning models for predictive analytics, data visualization dashboards, and automated reporting systems. Collaborating with cross-functional teams to derive actionable insights from large datasets."
+  },
+  { 
+    title: "Studying Bachelor of Computer Science", 
+    period: "Major: AI and Big Data", 
+    place: "University of Wollongong Dubai", 
+    color: "text-funky-teal",
+    details: "Pursuing a comprehensive curriculum covering artificial intelligence, machine learning, data mining, and big data technologies. Engaged in research projects and hands-on labs to build practical skills."
+  },
 ];
 
 const pastActivities = [
-  { title: "Gitex Representative", period: "Oct 2025", place: "dreamloop.ai" },
-  { title: "High School Diploma", period: "2022-2024", place: "NIMS, Dubai" },
-  { title: "School Headgirl", period: "2023-2024", place: "NIMS" },
-  { title: "Director General NIMSMUN", period: "2023-2024", place: "NIMS" },
+  { 
+    title: "Gitex Representative", 
+    period: "Oct 2025", 
+    place: "dreamloop.ai",
+    details: "Represented dreamloop.ai at GITEX Global, one of the world's largest tech exhibitions. Demonstrated AI products to potential clients and partners, engaging with industry leaders."
+  },
+  { 
+    title: "High School Diploma", 
+    period: "2022-2024", 
+    place: "NIMS, Dubai",
+    details: "Completed high school with distinction, focusing on science and mathematics. Participated in various extracurricular activities and academic competitions."
+  },
+  { 
+    title: "School Headgirl", 
+    period: "2023-2024", 
+    place: "NIMS",
+    details: "Led student body initiatives, organized school events, and served as the primary liaison between students and administration. Developed leadership and public speaking skills."
+  },
+  { 
+    title: "Director General NIMSMUN", 
+    period: "2023-2024", 
+    place: "NIMS",
+    details: "Directed the Model United Nations conference, overseeing committee formations, delegate training, and event logistics. Managed a team of executive board members and chairs."
+  },
 ];
 
 const Index = () => {
@@ -169,13 +201,19 @@ const Index = () => {
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
                     transition={{ delay: index * 0.1 }}
-                    className="relative flex items-start gap-6"
+                    className="relative flex items-start gap-6 group"
                   >
                     <div className="w-5 h-5 rounded-full bg-funky-pink border-4 border-background shadow-lg z-10 flex-shrink-0" />
-                    <div className="-mt-1">
-                      <h4 className={`text-xl font-outfit font-bold ${item.color}`}>{item.title}</h4>
+                    <div className="-mt-1 cursor-pointer">
+                      <h4 className={`text-xl font-outfit font-bold ${item.color} group-hover:underline`}>{item.title}</h4>
                       <p className="text-muted-foreground font-space text-sm">{item.period}</p>
                       <p className="text-foreground font-space">{item.place}</p>
+                    </div>
+                    {/* Hover tooltip */}
+                    <div className="absolute left-64 top-0 w-80 p-4 bg-card border border-border rounded-xl shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
+                      <div className="absolute -left-2 top-4 w-4 h-4 bg-card border-l border-t border-border rotate-[-45deg]" />
+                      <h5 className={`font-outfit font-bold ${item.color} mb-2`}>{item.title}</h5>
+                      <p className="text-muted-foreground font-space text-sm leading-relaxed">{item.details}</p>
                     </div>
                   </motion.div>
                 ))}
@@ -203,13 +241,19 @@ const Index = () => {
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
                     transition={{ delay: index * 0.1 }}
-                    className="relative flex items-start gap-6"
+                    className="relative flex items-start gap-6 group"
                   >
                     <div className="w-5 h-5 rounded-full bg-funky-orange border-4 border-background shadow-lg z-10 flex-shrink-0" />
-                    <div className="-mt-1">
-                      <h4 className="text-lg font-outfit font-bold text-foreground">{item.title}</h4>
+                    <div className="-mt-1 cursor-pointer">
+                      <h4 className="text-lg font-outfit font-bold text-foreground group-hover:underline">{item.title}</h4>
                       <p className="text-funky-teal font-space text-sm">{item.period}</p>
                       <p className="text-muted-foreground font-space text-sm">{item.place}</p>
+                    </div>
+                    {/* Hover tooltip */}
+                    <div className="absolute left-64 top-0 w-80 p-4 bg-card border border-border rounded-xl shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
+                      <div className="absolute -left-2 top-4 w-4 h-4 bg-card border-l border-t border-border rotate-[-45deg]" />
+                      <h5 className="font-outfit font-bold text-funky-orange mb-2">{item.title}</h5>
+                      <p className="text-muted-foreground font-space text-sm leading-relaxed">{item.details}</p>
                     </div>
                   </motion.div>
                 ))}

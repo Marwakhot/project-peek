@@ -67,7 +67,7 @@ const HangingIDCard = () => {
           </div>
 
           {/* Photo placeholder - positioned above header */}
-          <div className="absolute -top-12 left-1/2 -translate-x-1/2 z-20">
+          <div className="absolute -top-6 left-1/2 -translate-x-1/2 z-20">
             <div className="w-24 h-24 rounded-full bg-gradient-to-br from-funky-teal to-funky-pink border-4 border-white shadow-lg flex items-center justify-center">
               <span className="text-4xl font-outfit font-bold text-white">M</span>
             </div>

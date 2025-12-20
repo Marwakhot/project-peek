@@ -25,9 +25,7 @@ const ProjectCard = ({ title, description, techStack, color, index, github }: Pr
       <div className="absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-gradient-to-br from-white/20 to-transparent pointer-events-none" />
       
       <div className="relative z-10">
-        <span className="text-xs font-space font-bold text-foreground/50 tracking-widest">PROJECT</span>
-        <span className="text-sm font-space font-bold text-foreground/80 ml-2">0{index + 1}</span>
-        <h3 className="text-xl font-bold font-outfit text-foreground mt-2 group-hover:text-funky-purple transition-colors leading-tight">
+        <h3 className="text-xl font-bold font-outfit text-foreground group-hover:text-funky-purple transition-colors leading-tight">
           {title}
         </h3>
       </div>

@@ -4,15 +4,16 @@ import { Github } from "lucide-react";
 interface ProjectCardProps {
   title: string;
   description: string;
+  techStack?: string;
   color: string;
   index: number;
   github?: string;
 }
 
-const ProjectCard = ({ title, description, color, index, github }: ProjectCardProps) => {
+const ProjectCard = ({ title, description, techStack, color, index, github }: ProjectCardProps) => {
   return (
     <motion.div
-      className={`${color} rounded-3xl p-5 h-48 flex flex-col justify-between shadow-card hover:shadow-hover transition-all duration-300 cursor-pointer border-2 border-foreground/10 backdrop-blur-none relative overflow-hidden group`}
+      className={`${color} rounded-3xl p-5 h-auto min-h-[220px] flex flex-col justify-between shadow-card hover:shadow-hover transition-all duration-300 cursor-pointer border-2 border-foreground/10 backdrop-blur-none relative overflow-hidden group`}
       whileHover={{ scale: 1.05, rotate: 1 }}
       whileTap={{ scale: 0.98 }}
     >
@@ -26,18 +27,28 @@ const ProjectCard = ({ title, description, color, index, github }: ProjectCardPr
       <div className="relative z-10">
         <span className="text-xs font-space font-bold text-foreground/50 tracking-widest">PROJECT</span>
         <span className="text-sm font-space font-bold text-foreground/80 ml-2">0{index + 1}</span>
-        <h3 className="text-2xl font-bold font-outfit text-foreground mt-2 group-hover:text-funky-purple transition-colors">
+        <h3 className="text-xl font-bold font-outfit text-foreground mt-2 group-hover:text-funky-purple transition-colors leading-tight">
           {title}
         </h3>
       </div>
       
-      <div className="relative z-10">
-        <p className="text-foreground/70 font-space text-sm mb-3">{description}</p>
+      <div className="relative z-10 flex flex-col gap-2">
+        <p className="text-foreground/70 font-space text-xs leading-relaxed">{description}</p>
+        
+        {/* Tech Stack */}
+        {techStack && (
+          <div className="flex flex-wrap gap-1 mt-1">
+            <span className="text-[10px] font-space font-semibold text-foreground/90 bg-foreground/10 px-2 py-1 rounded-full">
+              {techStack}
+            </span>
+          </div>
+        )}
+        
         <a 
           href={github || "#"} 
           target="_blank" 
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-foreground/10 hover:bg-foreground/20 transition-colors"
+          className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-foreground/10 hover:bg-foreground/20 transition-colors w-fit mt-1"
           onClick={(e) => e.stopPropagation()}
         >
           <Github className="w-4 h-4 text-foreground/70" />

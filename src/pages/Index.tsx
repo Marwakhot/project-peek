@@ -4,14 +4,62 @@ import ProjectCard from "@/components/ProjectCard";
 import HangingIDCard from "@/components/HangingIDCard";
 
 const projects = [
-  { title: "AI Dashboard", description: "Real-time ML analytics & visualization platform", color: "bg-funky-pink", github: "#" },
-  { title: "Web3 Exchange", description: "Decentralized crypto trading interface", color: "bg-funky-teal", github: "#" },
-  { title: "Mobile Fintech", description: "Next-gen payment & banking app", color: "bg-funky-yellow", github: "#" },
-  { title: "SaaS Platform", description: "Cloud-native productivity suite", color: "bg-funky-orange", github: "#" },
-  { title: "IoT Controller", description: "Smart home automation system", color: "bg-funky-purple", github: "#" },
-  { title: "Dev Tools", description: "Code collaboration & CI/CD pipeline", color: "bg-funky-green", github: "#" },
-  { title: "Data Pipeline", description: "ETL processing & data warehousing", color: "bg-funky-pink", github: "#" },
-  { title: "Chat Application", description: "Real-time messaging with AI features", color: "bg-funky-teal", github: "#" },
+  { 
+    title: "Automated Bug Triage System", 
+    description: "Solves slow bug assignment by using NLP and ML to automatically predict the responsible team and priority for each bug report, handling bulk predictions via a Streamlit dashboard.", 
+    techStack: "Python • NLP (TF-IDF) • LightGBM • Flask API • Streamlit • Docker",
+    color: "bg-funky-pink", 
+    github: "#" 
+  },
+  { 
+    title: "AI Safety Audit: Credit Fairness", 
+    description: "Fixed the 'black box' problem in a loan-approval AI by finding hidden biases and creating a safety roadmap to prevent legal and ethical risks.", 
+    techStack: "Python • Fairlearn • Scikit-learn • NIST AI RMF",
+    color: "bg-funky-teal", 
+    github: "#" 
+  },
+  { 
+    title: "Portfolio Capital Optimization", 
+    description: "Prevents extreme portfolio losses by calculating risk-adjusted capital requirements for a $1,000,000 portfolio, recommending a $21,578 daily capital reserve using 3 VaR models.", 
+    techStack: "Python • Pandas • NumPy • SciPy • Monte Carlo Simulation",
+    color: "bg-funky-yellow", 
+    github: "#" 
+  },
+  { 
+    title: "PEAR Internships Platform", 
+    description: "A full-stack web application that connects students and companies by streamlining internship postings, applications, and application tracking through role-based dashboards.", 
+    techStack: "HTML • JavaScript • CSS • Node.js • MySQL • REST APIs",
+    color: "bg-funky-orange", 
+    github: "#" 
+  },
+  { 
+    title: "Robot Navigation Using AI", 
+    description: "Solves autonomous navigation challenges in a 10m × 10m simulated arena by implementing Fuzzy Logic, Behavior Trees, and Q-Learning for obstacle avoidance.", 
+    techStack: "Python • Fuzzy Logic • Behavior Trees • Reinforcement Learning (Q-Learning)",
+    color: "bg-funky-purple", 
+    github: "#" 
+  },
+  { 
+    title: "Brain Brew", 
+    description: "An AI-powered platform that tackles passive PDF learning by using AI to ask thought-provoking questions, making students think critically with 4 adaptive difficulty levels.", 
+    techStack: "React • TypeScript • Supabase • PostgreSQL • Three.js • Tailwind CSS",
+    color: "bg-funky-green", 
+    github: "#" 
+  },
+  { 
+    title: "Stratify", 
+    description: "Helps automotive companies manage the transition to EVs by providing real-time KPI tracking, sustainability monitoring, and operational insights to optimize resource use.", 
+    techStack: "System Design • UML Modeling",
+    color: "bg-funky-pink", 
+    github: "#" 
+  },
+  { 
+    title: "Quantopian Failure Analysis", 
+    description: "Explains the failure of a $48M fintech startup by identifying weaknesses in scope control, risk monitoring, and stakeholder communication using PMBOK principles.", 
+    techStack: "PMBOK Framework • Case Study Research",
+    color: "bg-funky-teal", 
+    github: "#" 
+  },
 ];
 
 const currentActivities = [
@@ -165,6 +213,7 @@ const Index = () => {
                     <ProjectCard
                       title={project.title}
                       description={project.description}
+                      techStack={project.techStack}
                       color={project.color}
                       index={index}
                       github={project.github}

@@ -13,7 +13,7 @@ interface ProjectCardProps {
 const ProjectCard = ({ title, description, techStack, color, index, github }: ProjectCardProps) => {
   return (
     <motion.div
-      className={`${color} rounded-3xl p-5 h-auto min-h-[220px] flex flex-col justify-between shadow-card hover:shadow-hover transition-all duration-300 cursor-pointer border-2 border-foreground/10 backdrop-blur-none relative overflow-hidden group`}
+      className={`${color} rounded-3xl p-5 h-[240px] flex flex-col justify-between shadow-card hover:shadow-hover transition-all duration-300 cursor-pointer border-2 border-foreground/10 backdrop-blur-none relative overflow-hidden group`}
       whileHover={{ scale: 1.05, rotate: 1 }}
       whileTap={{ scale: 0.98 }}
     >

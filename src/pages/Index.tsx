@@ -1,5 +1,5 @@
-import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef, useState } from "react";
+import { motion } from "framer-motion";
+import { useState } from "react";
 import ProjectCard from "@/components/ProjectCard";
 import HangingIDCard from "@/components/HangingIDCard";
 
@@ -107,16 +107,6 @@ const pastActivities = [
 ];
 
 const Index = () => {
-  const projectsRef = useRef<HTMLDivElement>(null);
-  
-  // Track when projects section hits the top of viewport
-  const { scrollYProgress: projectsScrollProgress } = useScroll({
-    target: projectsRef,
-    offset: ["start start", "end end"],
-  });
-
-  // Card spread animation - only starts when section is at top
-  const spread = useTransform(projectsScrollProgress, [0, 0.5], [0, 1]);
 
   return (
     <div className="bg-background">
@@ -157,71 +147,43 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Projects Section - Sticky with cards spreading */}
-      <section ref={projectsRef} className="min-h-[200vh] mt-72">
-        <div className="sticky top-0 h-screen flex items-center pt-48">
-          <div className="container mx-auto px-6 flex flex-row items-center gap-12">
-            {/* Left side - Title */}
-            <motion.div 
-              className="w-1/3 flex-shrink-0"
-              initial={{ opacity: 0, x: -50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-            >
-              <h2 className="text-4xl md:text-6xl font-outfit font-bold text-foreground leading-tight">
-                look into my{" "}
-                <span className="text-funky-teal">projects</span>
-              </h2>
-              <div className="mt-4 h-1 w-24 bg-funky-yellow rounded-full" />
-            </motion.div>
+      {/* Projects Section - Static grid layout */}
+      <section className="py-24 mt-24">
+        <div className="container mx-auto px-6">
+          {/* Title */}
+          <motion.div 
+            className="mb-16"
+            initial={{ opacity: 0, x: -50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+          >
+            <h2 className="text-4xl md:text-6xl font-outfit font-bold text-foreground leading-tight">
+              look into my{" "}
+              <span className="text-funky-teal">projects</span>
+            </h2>
+            <div className="mt-4 h-1 w-24 bg-funky-yellow rounded-full" />
+          </motion.div>
 
-            {/* Right side - Stacked Cards that spread to 2-column grid */}
-            <div className="w-2/3 relative h-[1100px]">
-              {projects.map((project, index) => {
-                const row = Math.floor(index / 2);
-                const col = index % 2;
-                const totalCards = projects.length;
-                
-                return (
-                  <motion.div
-                    key={project.title}
-                    className="absolute w-[300px] md:w-[360px]"
-                    style={{
-                      top: useTransform(
-                        spread,
-                        [0, 1],
-                        [index * 12, row * 290]
-                      ),
-                      left: useTransform(
-                        spread,
-                        [0, 1],
-                        [`calc(50% - 150px + ${index * 8}px)`, col === 0 ? '5%' : '55%']
-                      ),
-                      rotate: useTransform(
-                        spread,
-                        [0, 1],
-                        [(index - 2.5) * 5, 0]
-                      ),
-                      zIndex: totalCards - index,
-                      scale: useTransform(
-                        spread,
-                        [0, 1],
-                        [1 - index * 0.03, 1]
-                      ),
-                    }}
-                  >
-                    <ProjectCard
-                      title={project.title}
-                      description={project.description}
-                      techStack={project.techStack}
-                      color={project.color}
-                      index={index}
-                      github={project.github}
-                    />
-                  </motion.div>
-                );
-              })}
-            </div>
+          {/* Project Cards Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+            {projects.map((project, index) => (
+              <motion.div
+                key={project.title}
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1 }}
+              >
+                <ProjectCard
+                  title={project.title}
+                  description={project.description}
+                  techStack={project.techStack}
+                  color={project.color}
+                  index={index}
+                  github={project.github}
+                />
+              </motion.div>
+            ))}
           </div>
         </div>
       </section>

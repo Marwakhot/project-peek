@@ -158,8 +158,8 @@ const Index = () => {
       </section>
 
       {/* Projects Section - Sticky with cards spreading */}
-      <section ref={projectsRef} className="min-h-[200vh]">
-        <div className="sticky top-0 h-screen flex items-center">
+      <section ref={projectsRef} className="min-h-[200vh] mt-32">
+        <div className="sticky top-0 h-screen flex items-center pt-20">
           <div className="container mx-auto px-6 flex flex-row items-center gap-12">
             {/* Left side - Title */}
             <motion.div 
@@ -190,7 +190,7 @@ const Index = () => {
                       top: useTransform(
                         spread,
                         [0, 1],
-                        [index * 12, row * 260]
+                        [index * 12, row * 290]
                       ),
                       left: useTransform(
                         spread,

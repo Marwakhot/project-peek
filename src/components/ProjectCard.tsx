@@ -38,9 +38,14 @@ const ProjectCard = ({ title, description, techStack, color, index, github }: Pr
         {/* Tech Stack */}
         {techStack && (
           <div className="flex flex-wrap gap-1 mt-1">
-            <span className="text-[10px] font-space font-semibold text-foreground/90 bg-foreground/10 px-2 py-1 rounded-full">
-              {techStack}
-            </span>
+            {techStack.split('•').map((tech, i) => (
+              <span 
+                key={i}
+                className="text-[10px] font-space font-semibold text-foreground/90 bg-foreground/10 px-2 py-0.5 rounded-full"
+              >
+                {tech.trim()}
+              </span>
+            ))}
           </div>
         )}
         

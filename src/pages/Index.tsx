@@ -176,7 +176,7 @@ const Index = () => {
             </motion.div>
 
             {/* Right side - Stacked Cards that spread to 2-column grid */}
-            <div className="w-2/3 relative h-[650px]">
+            <div className="w-2/3 relative h-[1100px]">
               {projects.map((project, index) => {
                 const row = Math.floor(index / 2);
                 const col = index % 2;
@@ -190,7 +190,7 @@ const Index = () => {
                       top: useTransform(
                         spread,
                         [0, 1],
-                        [index * 12, row * 210]
+                        [index * 12, row * 260]
                       ),
                       left: useTransform(
                         spread,

@@ -227,22 +227,22 @@ const Index = () => {
       </section>
 
       {/* Journey Section - Horizontal Timeline */}
-      <section className="py-24 mt-32 overflow-x-hidden">
+      <section className="py-24 mt-64 overflow-visible">
         <div className="container mx-auto px-6">
           {/* Currently I'm - Horizontal */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="mb-20"
+            className="mb-32"
           >
             <h3 className="text-2xl md:text-3xl font-outfit font-bold text-foreground mb-8">
               Currently I'm
             </h3>
-            <div className="relative">
+            <div className="relative pb-40">
               {/* Horizontal line */}
               <div className="absolute left-0 right-0 top-2 h-1 bg-funky-pink" />
-              <div className="flex gap-8 overflow-x-auto pb-4">
+              <div className="flex gap-12">
                 {currentActivities.map((item, index) => (
                   <motion.div
                     key={index}
@@ -258,8 +258,8 @@ const Index = () => {
                       <p className="text-muted-foreground font-space text-sm">{item.period}</p>
                       <p className="text-foreground font-space">{item.place}</p>
                     </div>
-                    {/* Hover tooltip */}
-                    <div className="absolute left-0 top-28 w-80 p-4 bg-card border border-border rounded-xl shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
+                    {/* Hover tooltip - positioned below */}
+                    <div className="absolute left-0 top-full mt-4 w-80 p-4 bg-card border border-border rounded-xl shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
                       <h5 className={`font-outfit font-bold ${item.color} mb-2`}>{item.title}</h5>
                       <p className="text-muted-foreground font-space text-sm leading-relaxed">{item.details}</p>
                     </div>
@@ -278,10 +278,10 @@ const Index = () => {
             <h3 className="text-2xl md:text-3xl font-outfit font-bold text-foreground mb-8">
               I've been
             </h3>
-            <div className="relative">
+            <div className="relative pb-40">
               {/* Horizontal line */}
               <div className="absolute left-0 right-0 top-2 h-1 bg-funky-orange" />
-              <div className="flex gap-8 overflow-x-auto pb-4">
+              <div className="flex gap-12">
                 {pastActivities.map((item, index) => (
                   <motion.div
                     key={index}
@@ -297,8 +297,8 @@ const Index = () => {
                       <p className="text-funky-teal font-space text-sm">{item.period}</p>
                       <p className="text-muted-foreground font-space text-sm">{item.place}</p>
                     </div>
-                    {/* Hover tooltip */}
-                    <div className="absolute left-0 top-28 w-80 p-4 bg-card border border-border rounded-xl shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
+                    {/* Hover tooltip - positioned below */}
+                    <div className="absolute left-0 top-full mt-4 w-80 p-4 bg-card border border-border rounded-xl shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
                       <h5 className="font-outfit font-bold text-funky-orange mb-2">{item.title}</h5>
                       <p className="text-muted-foreground font-space text-sm leading-relaxed">{item.details}</p>
                     </div>

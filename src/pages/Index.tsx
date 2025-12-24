@@ -64,45 +64,49 @@ const projects = [
 
 const currentActivities = [
   { 
-    title: "Data Science Intern", 
-    period: "Oct 2025 - April 2026", 
-    place: "Alamar", 
-    color: "text-funky-orange",
-    details: "Working on machine learning models for predictive analytics, data visualization dashboards, and automated reporting systems. Collaborating with cross-functional teams to derive actionable insights from large datasets."
+    title: "Data Science Intern @ Alamar", 
+    emoji: "💼",
+    description: "Building ML models and dashboards that actually help people make sense of messy data. Currently obsessed with predictive analytics.",
+    accent: "bg-funky-orange/10 border-funky-orange/30",
+    textColor: "text-funky-orange"
   },
   { 
-    title: "Studying Bachelor of Computer Science", 
-    period: "Major: AI and Big Data", 
-    place: "University of Wollongong Dubai", 
-    color: "text-funky-teal",
-    details: "Pursuing a comprehensive curriculum covering artificial intelligence, machine learning, data mining, and big data technologies. Engaged in research projects and hands-on labs to build practical skills."
+    title: "CS Student @ UOW Dubai", 
+    emoji: "📚",
+    description: "Majoring in AI & Big Data. It's a lot of math, a lot of coding, and honestly? I love it.",
+    accent: "bg-funky-teal/10 border-funky-teal/30",
+    textColor: "text-funky-teal"
   },
 ];
 
 const pastActivities = [
   { 
-    title: "Gitex Representative", 
-    period: "Oct 2025", 
-    place: "dreamloop.ai",
-    details: "Represented dreamloop.ai at GITEX Global, one of the world's largest tech exhibitions. Demonstrated AI products to potential clients and partners, engaging with industry leaders."
+    title: "GITEX Rep for dreamloop.ai",
+    emoji: "🎤",
+    description: "Got to demo AI products at one of the world's biggest tech expos. Talked to so many cool people.",
+    accent: "bg-funky-purple/10 border-funky-purple/30",
+    textColor: "text-funky-purple"
   },
   { 
-    title: "High School Diploma", 
-    period: "2022-2024", 
-    place: "NIMS, Dubai",
-    details: "Completed high school with distinction, focusing on science and mathematics. Participated in various extracurricular activities and academic competitions."
+    title: "School Headgirl",
+    emoji: "👑",
+    description: "Led the student body, organized events, and learned that leadership is mostly about listening.",
+    accent: "bg-funky-pink/10 border-funky-pink/30",
+    textColor: "text-funky-pink"
   },
   { 
-    title: "School Headgirl", 
-    period: "2023-2024", 
-    place: "NIMS",
-    details: "Led student body initiatives, organized school events, and served as the primary liaison between students and administration. Developed leadership and public speaking skills."
+    title: "Director General @ NIMSMUN",
+    emoji: "🌍",
+    description: "Ran our Model UN conference. Lots of logistics, lots of debates, lots of late nights.",
+    accent: "bg-funky-yellow/10 border-funky-yellow/30",
+    textColor: "text-funky-yellow"
   },
   { 
-    title: "Director General NIMSMUN", 
-    period: "2023-2024", 
-    place: "NIMS",
-    details: "Directed the Model United Nations conference, overseeing committee formations, delegate training, and event logistics. Managed a team of executive board members and chairs."
+    title: "High School Graduate",
+    emoji: "🎓",
+    description: "NIMS Dubai, class of 2024. Science and math nerd with a side of extracurriculars.",
+    accent: "bg-funky-green/10 border-funky-green/30",
+    textColor: "text-funky-green"
   },
 ];
 
@@ -226,85 +230,71 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Journey Section - Horizontal Timeline */}
-      <section className="py-24 mt-64 overflow-visible">
+      {/* Journey Section - Light Boxes */}
+      <section className="py-24 mt-64">
         <div className="container mx-auto px-6">
-          {/* Currently I'm - Horizontal */}
+          {/* Currently */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="mb-32"
+            className="mb-20"
           >
             <h3 className="text-2xl md:text-3xl font-outfit font-bold text-foreground mb-8">
-              Currently I'm
+              Right now, I'm...
             </h3>
-            <div className="relative pb-40">
-              {/* Horizontal line */}
-              <div className="absolute left-0 right-0 top-2 h-1 bg-funky-pink" />
-              <div className="flex gap-12">
-                {currentActivities.map((item, index) => (
-                  <motion.div
-                    key={index}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: index * 0.1 }}
-                    className="relative flex flex-col items-start group min-w-[280px]"
-                  >
-                    <div className="w-5 h-5 rounded-full bg-funky-pink border-4 border-background shadow-lg z-10 flex-shrink-0 mb-4" />
-                    <div className="cursor-pointer">
-                      <h4 className={`text-xl font-outfit font-bold ${item.color} group-hover:underline`}>{item.title}</h4>
-                      <p className="text-muted-foreground font-space text-sm">{item.period}</p>
-                      <p className="text-foreground font-space">{item.place}</p>
-                    </div>
-                    {/* Hover tooltip - positioned below */}
-                    <div className="absolute left-0 top-full mt-4 w-80 p-4 bg-card border border-border rounded-xl shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
-                      <h5 className={`font-outfit font-bold ${item.color} mb-2`}>{item.title}</h5>
-                      <p className="text-muted-foreground font-space text-sm leading-relaxed">{item.details}</p>
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {currentActivities.map((item, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.1 }}
+                  whileHover={{ y: -4 }}
+                  className={`p-6 rounded-2xl border ${item.accent} backdrop-blur-sm transition-all duration-300`}
+                >
+                  <span className="text-3xl mb-4 block">{item.emoji}</span>
+                  <h4 className={`text-lg font-outfit font-semibold ${item.textColor} mb-2`}>
+                    {item.title}
+                  </h4>
+                  <p className="text-muted-foreground font-space text-sm leading-relaxed">
+                    {item.description}
+                  </p>
+                </motion.div>
+              ))}
             </div>
           </motion.div>
 
-          {/* I've been - Horizontal */}
+          {/* Past */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
             <h3 className="text-2xl md:text-3xl font-outfit font-bold text-foreground mb-8">
-              I've been
+              Things I've done...
             </h3>
-            <div className="relative pb-40">
-              {/* Horizontal line */}
-              <div className="absolute left-0 right-0 top-2 h-1 bg-funky-orange" />
-              <div className="flex gap-12">
-                {pastActivities.map((item, index) => (
-                  <motion.div
-                    key={index}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: index * 0.1 }}
-                    className="relative flex flex-col items-start group min-w-[220px]"
-                  >
-                    <div className="w-5 h-5 rounded-full bg-funky-orange border-4 border-background shadow-lg z-10 flex-shrink-0 mb-4" />
-                    <div className="cursor-pointer">
-                      <h4 className="text-lg font-outfit font-bold text-foreground group-hover:underline">{item.title}</h4>
-                      <p className="text-funky-teal font-space text-sm">{item.period}</p>
-                      <p className="text-muted-foreground font-space text-sm">{item.place}</p>
-                    </div>
-                    {/* Hover tooltip - positioned below */}
-                    <div className="absolute left-0 top-full mt-4 w-80 p-4 bg-card border border-border rounded-xl shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
-                      <h5 className="font-outfit font-bold text-funky-orange mb-2">{item.title}</h5>
-                      <p className="text-muted-foreground font-space text-sm leading-relaxed">{item.details}</p>
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              {pastActivities.map((item, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.1 }}
+                  whileHover={{ y: -4 }}
+                  className={`p-5 rounded-xl border ${item.accent} backdrop-blur-sm transition-all duration-300`}
+                >
+                  <span className="text-2xl mb-3 block">{item.emoji}</span>
+                  <h4 className={`text-base font-outfit font-semibold ${item.textColor} mb-2`}>
+                    {item.title}
+                  </h4>
+                  <p className="text-muted-foreground font-space text-xs leading-relaxed">
+                    {item.description}
+                  </p>
+                </motion.div>
+              ))}
             </div>
           </motion.div>
         </div>

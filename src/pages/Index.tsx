@@ -65,15 +65,13 @@ const projects = [
 const currentActivities = [
   { 
     title: "Data Science Intern @ Alamar", 
-    emoji: "💼",
-    description: "Building ML models and dashboards that actually help people make sense of messy data. Currently obsessed with predictive analytics.",
+    description: "Building ML models for predictive analytics, creating data visualization dashboards, and developing automated reporting systems using Python and modern data stack.",
     accent: "bg-funky-orange/10 border-funky-orange/30",
     textColor: "text-funky-orange"
   },
   { 
     title: "CS Student @ UOW Dubai", 
-    emoji: "📚",
-    description: "Majoring in AI & Big Data. It's a lot of math, a lot of coding, and honestly? I love it.",
+    description: "Pursuing B.Sc. in Computer Science with a major in AI & Big Data. Coursework includes machine learning, data mining, distributed systems, and statistical analysis.",
     accent: "bg-funky-teal/10 border-funky-teal/30",
     textColor: "text-funky-teal"
   },
@@ -81,30 +79,26 @@ const currentActivities = [
 
 const pastActivities = [
   { 
-    title: "GITEX Rep for dreamloop.ai",
-    emoji: "🎤",
-    description: "Got to demo AI products at one of the world's biggest tech expos. Talked to so many cool people.",
+    title: "GITEX Representative @ dreamloop.ai",
+    description: "Demonstrated AI products at GITEX Global 2025, engaged with potential clients and partners, and presented technical capabilities to industry stakeholders.",
     accent: "bg-funky-purple/10 border-funky-purple/30",
     textColor: "text-funky-purple"
   },
   { 
-    title: "School Headgirl",
-    emoji: "👑",
-    description: "Led the student body, organized events, and learned that leadership is mostly about listening.",
+    title: "School Headgirl @ NIMS",
+    description: "Led student body initiatives, coordinated school-wide events, served as liaison between students and administration, and managed prefect council operations.",
     accent: "bg-funky-pink/10 border-funky-pink/30",
     textColor: "text-funky-pink"
   },
   { 
     title: "Director General @ NIMSMUN",
-    emoji: "🌍",
-    description: "Ran our Model UN conference. Lots of logistics, lots of debates, lots of late nights.",
+    description: "Directed Model United Nations conference operations, oversaw committee formations, managed delegate training programs, and coordinated logistics for 200+ participants.",
     accent: "bg-funky-yellow/10 border-funky-yellow/30",
     textColor: "text-funky-yellow"
   },
   { 
-    title: "High School Graduate",
-    emoji: "🎓",
-    description: "NIMS Dubai, class of 2024. Science and math nerd with a side of extracurriculars.",
+    title: "High School Graduate @ NIMS Dubai",
+    description: "Completed high school with distinction in 2024, specializing in science and mathematics streams with participation in academic competitions.",
     accent: "bg-funky-green/10 border-funky-green/30",
     textColor: "text-funky-green"
   },
@@ -146,9 +140,28 @@ const Index = () => {
               I could write a long "About Me," but honestly the projects below say it better. Go take a look.
             </motion.p>
             <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.6 }}
+              className="mt-8 flex gap-4"
+            >
+              <a 
+                href="#projects" 
+                className="px-6 py-3 bg-funky-teal text-background font-outfit font-semibold rounded-lg hover:bg-funky-teal/90 transition-colors"
+              >
+                Projects
+              </a>
+              <a 
+                href="#experience" 
+                className="px-6 py-3 border border-funky-pink text-funky-pink font-outfit font-semibold rounded-lg hover:bg-funky-pink/10 transition-colors"
+              >
+                Experience
+              </a>
+            </motion.div>
+            <motion.div
               animate={{ y: [0, 10, 0] }}
               transition={{ duration: 1.5, repeat: Infinity }}
-              className="mt-12 text-3xl text-funky-teal"
+              className="mt-8 text-3xl text-funky-teal"
             >
               ↓
             </motion.div>
@@ -162,7 +175,7 @@ const Index = () => {
       </section>
 
       {/* Projects Section - Sticky with cards spreading */}
-      <section ref={projectsRef} className="min-h-[200vh] mt-72">
+      <section id="projects" ref={projectsRef} className="min-h-[200vh] mt-72">
         <div className="sticky top-0 h-screen flex items-center pt-48">
           <div className="container mx-auto px-6 flex flex-row items-center gap-12">
             {/* Left side - Title */}
@@ -231,7 +244,7 @@ const Index = () => {
       </section>
 
       {/* Journey Section - Light Boxes */}
-      <section className="py-24 mt-64">
+      <section id="experience" className="py-24 mt-64">
         <div className="container mx-auto px-6">
           {/* Currently */}
           <motion.div
@@ -254,7 +267,6 @@ const Index = () => {
                   whileHover={{ y: -4 }}
                   className={`p-6 rounded-2xl border ${item.accent} backdrop-blur-sm transition-all duration-300`}
                 >
-                  <span className="text-3xl mb-4 block">{item.emoji}</span>
                   <h4 className={`text-lg font-outfit font-semibold ${item.textColor} mb-2`}>
                     {item.title}
                   </h4>
@@ -286,7 +298,6 @@ const Index = () => {
                   whileHover={{ y: -4 }}
                   className={`p-5 rounded-xl border ${item.accent} backdrop-blur-sm transition-all duration-300`}
                 >
-                  <span className="text-2xl mb-3 block">{item.emoji}</span>
                   <h4 className={`text-base font-outfit font-semibold ${item.textColor} mb-2`}>
                     {item.title}
                   </h4>

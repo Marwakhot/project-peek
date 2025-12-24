@@ -163,8 +163,8 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Projects Section - Retro Computer */}
-      <section id="projects" className="py-24 mt-72">
+      {/* Projects Section - Laptop Display */}
+      <section id="projects" className="py-16 mt-48">
         <div className="container mx-auto px-6">
           <div className="flex flex-col lg:flex-row items-center gap-12">
             {/* Left side - Title */}
@@ -184,7 +184,7 @@ const Index = () => {
               </p>
             </motion.div>
 
-            {/* Right side - Retro Computer */}
+            {/* Right side - Laptop */}
             <motion.div 
               className="lg:w-2/3"
               initial={{ opacity: 0, y: 30 }}
@@ -199,7 +199,7 @@ const Index = () => {
       </section>
 
       {/* Journey Section - Light Boxes */}
-      <section id="experience" className="py-24 mt-64">
+      <section id="experience" className="py-16 mt-16">
         <div className="container mx-auto px-6">
           {/* Currently */}
           <motion.div

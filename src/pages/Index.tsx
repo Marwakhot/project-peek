@@ -1,7 +1,6 @@
-import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef, useState } from "react";
-import ProjectCard from "@/components/ProjectCard";
+import { motion } from "framer-motion";
 import HangingIDCard from "@/components/HangingIDCard";
+import RetroComputer from "@/components/RetroComputer";
 
 const projects = [
   { 
@@ -105,16 +104,6 @@ const pastActivities = [
 ];
 
 const Index = () => {
-  const projectsRef = useRef<HTMLDivElement>(null);
-  
-  // Track when projects section hits the top of viewport
-  const { scrollYProgress: projectsScrollProgress } = useScroll({
-    target: projectsRef,
-    offset: ["start start", "end end"],
-  });
-
-  // Card spread animation - only starts when section is at top
-  const spread = useTransform(projectsScrollProgress, [0, 0.5], [0, 1]);
 
   return (
     <div className="bg-background">
@@ -174,13 +163,13 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Projects Section - Sticky with cards spreading */}
-      <section id="projects" ref={projectsRef} className="min-h-[200vh] mt-72">
-        <div className="sticky top-0 h-screen flex items-center pt-48">
-          <div className="container mx-auto px-6 flex flex-row items-center gap-12">
+      {/* Projects Section - Retro Computer */}
+      <section id="projects" className="py-24 mt-72">
+        <div className="container mx-auto px-6">
+          <div className="flex flex-col lg:flex-row items-center gap-12">
             {/* Left side - Title */}
             <motion.div 
-              className="w-1/3 flex-shrink-0"
+              className="lg:w-1/3 text-center lg:text-left"
               initial={{ opacity: 0, x: -50 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
@@ -189,56 +178,22 @@ const Index = () => {
                 look into my{" "}
                 <span className="text-funky-teal">projects</span>
               </h2>
-              <div className="mt-4 h-1 w-24 bg-funky-yellow rounded-full" />
+              <div className="mt-4 h-1 w-24 bg-funky-yellow rounded-full mx-auto lg:mx-0" />
+              <p className="mt-6 text-muted-foreground font-space">
+                Use the arrows to browse through my work
+              </p>
             </motion.div>
 
-            {/* Right side - Stacked Cards that spread to 2-column grid */}
-            <div className="w-2/3 relative h-[1100px]">
-              {projects.map((project, index) => {
-                const row = Math.floor(index / 2);
-                const col = index % 2;
-                const totalCards = projects.length;
-                
-                return (
-                  <motion.div
-                    key={project.title}
-                    className="absolute w-[300px] md:w-[360px]"
-                    style={{
-                      top: useTransform(
-                        spread,
-                        [0, 1],
-                        [index * 12, row * 290]
-                      ),
-                      left: useTransform(
-                        spread,
-                        [0, 1],
-                        [`calc(50% - 150px + ${index * 8}px)`, col === 0 ? '5%' : '55%']
-                      ),
-                      rotate: useTransform(
-                        spread,
-                        [0, 1],
-                        [(index - 2.5) * 5, 0]
-                      ),
-                      zIndex: totalCards - index,
-                      scale: useTransform(
-                        spread,
-                        [0, 1],
-                        [1 - index * 0.03, 1]
-                      ),
-                    }}
-                  >
-                    <ProjectCard
-                      title={project.title}
-                      description={project.description}
-                      techStack={project.techStack}
-                      color={project.color}
-                      index={index}
-                      github={project.github}
-                    />
-                  </motion.div>
-                );
-              })}
-            </div>
+            {/* Right side - Retro Computer */}
+            <motion.div 
+              className="lg:w-2/3"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2 }}
+            >
+              <RetroComputer projects={projects} />
+            </motion.div>
           </div>
         </div>
       </section>
